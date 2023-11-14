@@ -1,19 +1,13 @@
 import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
-import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export const WelcomePage = () => {
     const email = Cookies.get('email');
-    const token = Cookies.get('jwt-token');
+    const token = Cookies.get('jwt-token') as string;
+    const decoded = jwtDecode(token);
 
-    useEffect(() => {
-        if(!token) {
-            return;
-        }
-        const decodedToken = jwt.decode(token);
+    console.log(decoded)
 
-        console.log(decodedToken);
-    }, []);
     return(
       <div>
         <h1>Welcome</h1>
