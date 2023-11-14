@@ -11,21 +11,23 @@ export const AuthComponent: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleRegister = async () => {
-        try {
-            const response = await axios.post(`${URL}/api/v1/auth/register`, {
-                email,
-                password,
-            });
-            Cookies.set('jwt-token', response.data.token, { secure: true })
-            Cookies.set('email', email, { secure: true });
-            setToken(response.data.token);
-            setError(null);
-
-        } catch (err: any) {
-            setError(err.response.data.message);
-        }
-    };
+    // const handleRegister = async () => {
+    //     try {
+    //         const response = await axios.post(`${URL}/api/v1/auth/register`, {
+    //             email,
+    //             password,
+    //         });
+    //         if(response) {
+    //             console.log(response.data.token)
+    //         }
+    //
+    //         setToken(response.data.token);
+    //         setError(null);
+    //
+    //     } catch (err: any) {
+    //         setError(err.response.data.message);
+    //     }
+    // };
 
     const handleAuthenticate = async () => {
         try {
@@ -33,10 +35,9 @@ export const AuthComponent: React.FC = () => {
                 email,
                 password,
             });
-            setToken(response.data.token);
-
+            Cookies.set('jwt-token', response.data.token, { secure: true })
+            Cookies.set('email', email, { secure: true });
             navigate('/welcome');
-            setError(null);
         } catch (err: any) {
             setError(err.response.data.message);
         }
@@ -76,7 +77,7 @@ export const AuthComponent: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button onClick={handleRegister}>Register</button>
+                    {/*<button onClick={handleRegister}>Register</button>*/}
                     <button onClick={handleAuthenticate}>Authenticate</button>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                 </div>
