@@ -31,6 +31,7 @@ export const AuthComponent: React.FC = () => {
                 password,
             });
             setToken(response.data.token);
+
             navigate('/welcome');
             setError(null);
         } catch (err: any) {
