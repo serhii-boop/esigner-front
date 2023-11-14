@@ -6,10 +6,12 @@ export const WelcomePage = () => {
     const token = Cookies.get('jwt-token') as string;
     const decoded = jwtDecode(token);
     // @ts-ignore
-    const role = decoded.roles[0].authority;
+    const role = decoded.roles[0].authority as string;
     console.log(role)
 
     return(
-      {role === 'ADMIN' ? <AdminPage /> : <UserPage />}
+        <>
+      {role === "ADMIN" ? <div>Hello admin</div> : <div>Hello user</div>}
+        </>
     )
 }
