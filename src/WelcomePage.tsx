@@ -5,8 +5,9 @@ export const WelcomePage = () => {
     const email = Cookies.get('email');
     const token = Cookies.get('jwt-token') as string;
     const decoded = jwtDecode(token);
-
-    console.log(decoded)
+    // @ts-ignore
+    const role = decoded.roles[0].authority;
+    console.log(role)
 
     return(
       <div>
