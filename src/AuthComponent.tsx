@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export const AuthComponent: React.FC = () => {
     const URL = process.env.REACT_APP_PUBLIC_API
@@ -16,6 +17,8 @@ export const AuthComponent: React.FC = () => {
                 email,
                 password,
             });
+            Cookies.set('jwt-token', response.data.token, { secure: true })
+            Cookies.set('email', email, { secure: true });
             setToken(response.data.token);
             setError(null);
 
