@@ -10,9 +10,6 @@ export const WelcomePage = () => {
     console.log(role)
 
     return(
-      <div>
-        <h1>Welcome</h1>
-        <p>{email}</p>
-      </div>
+      {role === 'ADMIN' ? <AdminPage /> : <UserPage />}
     )
 }
