@@ -1,0 +1,11 @@
+.authMainContainer {
+  margin: 20px auto;
+  width: 25%;
+}
+
+.authForm{
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
