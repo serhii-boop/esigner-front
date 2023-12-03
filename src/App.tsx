@@ -7,6 +7,7 @@ import { EditPage } from './pages/edit/EditPage';
 import { Header } from './components/header/Header';
 import './App.css';
 import {AddWorker} from "./pages/addWorker/AddWorker";
+import {SertificatesPage} from "./pages/sertificates/SertificatesPage";
 export const App: React.FC = () => {
   
     return (
@@ -19,6 +20,7 @@ export const App: React.FC = () => {
                     <Route path="/workers" element={<WorkersPage />} />
                   <Route path="/edit/:id" element={<EditPage />} />
                   <Route path="/add" element={<AddWorker />} />
+                  <Route path='/sertificates' element={<SertificatesPage />} />
                 </Routes>
             </div>
         </Router>

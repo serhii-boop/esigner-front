@@ -67,3 +67,38 @@ export const deleteWorker = async (id: string) => {
     console.error("Error deleting worker:", error);
   }
 }
+
+export const uploadCSV = async (file: File) => {
+  const axiosInstance = createAxiosInstance();
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const { data } = await axiosInstance.post(`/upload-csv`, formData);
+    return data;
+  } catch (error) {
+    console.error("Error uploading csv:", error);
+    throw error;
+  }
+};
+
+export const downloadTemplate = async () => {
+  const axiosInstance = createAxiosInstance();
+  try {
+    const response = await axiosInstance.get('/download-csv', { responseType: 'blob' });
+
+    const blob = new Blob([response.data], { type: 'text/csv' });
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'template.csv';
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+
+  } catch (error) {
+    console.error('Error downloading template:', error);
+  }
+};

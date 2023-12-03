@@ -14,7 +14,7 @@ const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'firstName', headerName: 'Імʼя', width: 150 },
   { field: 'lastName', headerName: 'Прізвище', width: 150 },
-  { field: 'email', headerName: 'Електронна пошта', width: 200 },
+  { field: 'email', headerName: 'Електронна пошта', width: 250 },
   { field: 'role', headerName: 'Роль', width: 130 },
   {
     field: 'actions',

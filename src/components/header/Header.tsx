@@ -17,7 +17,7 @@ import {useEffect, useState} from 'react';
 import { JwtPayload } from '../../types/main';
 import { jwtDecode } from "jwt-decode";
 
-const pages = [{ name: 'Працівники', link: '/workers', requiredRole: 'ADMIN'}];
+const pages = [{ name: 'Працівники', link: '/workers', requiredRole: 'ADMIN'}, { name:'Сертифікати', link: '/sertificates', requiredRole: 'ADMIN' || 'USER'}];
 const settings = ['Профіль', 'Вийти'];
 
 export const Header: React.FC = () => {
@@ -74,8 +74,6 @@ useEffect(() => {
       setFilteredPages(pages.filter((page) => !page.requiredRole || role === page.requiredRole));
     }
   }, [role]);
-
-  console.log(filteredPages)
 
   return (
     <div>

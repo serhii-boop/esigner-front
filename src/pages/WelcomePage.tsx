@@ -16,19 +16,9 @@ export const WelcomePage = () => {
         }
     }, [token]);
     return(
-        <>
-      {role === "ADMIN" ?(
         <div>
-            <h1>Hello admin </h1>
-            <h2>{email}</h2>
+            <h1>Welcome {email}</h1>
+            <h2>Your role is {role}</h2>
         </div>
-        )
-        : (
-            <div>
-                <h1>Hello user </h1>
-                <h2>{email}</h2>
-            </div>
-        )}
-        </>
     )
 }
