@@ -1,10 +1,11 @@
 import {editWorker, getWorker} from "../../services/main";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button, TextField} from "@mui/material";
 import * as yup from "yup";
 import {useFormik} from "formik";
 import {FormControl, FormControlLabel, Radio, RadioGroup} from "@mui/material";
+import {toast} from "react-toastify";
 
 export const EditPage = () => {
   const navigate = useNavigate();
@@ -52,8 +53,12 @@ export const EditPage = () => {
     },
     onSubmit: (values) => {
       editWorker(values).then(() => {
+        toast.success('Редагування працівника успішно завершено')
         navigate('/workers');
-      });
+      })
+        .catch(() => {
+          toast.error('Помилка редагування працівника')
+        });
     },
   });
 

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import {getWorkers} from "../services/main";
+import {getWorkers} from "../../services/main";
 import Cookies from "js-cookie";
 import { JwtPayload, jwtDecode } from "jwt-decode";
-import { WorkerType } from "../types/main";
-import { WorkersTable } from "../components/workers/WorkersTable";
+import { WorkerType } from "../../types/main";
+import { WorkersTable } from "../../components/workers/WorkersTable";
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export const WorkersPage = () => {
     const [workers, setWorkers] = useState([]);
@@ -28,7 +29,7 @@ export const WorkersPage = () => {
           setWorkers(data)
         });
       } catch (error) {
-        console.error("Error fetching workers:", error);
+        toast.error('Помилка завантаження працівників');
       }
     };
 

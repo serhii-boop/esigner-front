@@ -1,14 +1,14 @@
 import {addWorker} from "../../services/main";
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import {Button, Snackbar, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import * as yup from "yup";
 import {useFormik} from "formik";
-import {FormControl, FormControlLabel, Radio, RadioGroup, Alert} from "@mui/material";
+import {FormControl, FormControlLabel, Radio, RadioGroup} from "@mui/material";
+import {toast} from "react-toastify";
 
 export const AddWorker = () => {
   const navigate = useNavigate();
-  const [isAlertShown, setIsAlertShown] = React.useState(false);
 
   const validationSchema = yup.object({
     firstName: yup.string().required('Імʼя є обовʼязковим'),
@@ -41,7 +41,7 @@ export const AddWorker = () => {
     },
     onSubmit: (values) => {
       addWorker(values).then(() => {
-        setIsAlertShown(true);
+        toast.success(`Працівнику ${formik.values.firstName} ${formik.values.lastName} надіслано пароль на електронну пошту ${formik.values.email}`)
         setTimeout(() => {
           navigate('/workers');
         }, 5000);
@@ -115,9 +115,6 @@ export const AddWorker = () => {
           </Button>
         </form>
       </div>
-        <Snackbar open={isAlertShown} autoHideDuration={6000} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
-        <Alert severity="success">Працівнику {formik.values.firstName} {formik.values.lastName} надіслано пароль на електронну пошту {formik.values.email}</Alert>
-          </Snackbar>
     </div>
   );
 };

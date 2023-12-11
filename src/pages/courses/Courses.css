@@ -1,0 +1,15 @@
+
+.form-column {
+  width: 25%;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 10px;
+  justify-content: center;
+}

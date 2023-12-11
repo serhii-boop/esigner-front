@@ -17,7 +17,12 @@ import {useEffect, useState} from 'react';
 import { JwtPayload } from '../../types/main';
 import { jwtDecode } from "jwt-decode";
 
-const pages = [{ name: 'Працівники', link: '/workers', requiredRole: 'ADMIN'}, { name:'Сертифікати', link: '/sertificates', requiredRole: 'ADMIN' || 'USER'}];
+const pages = [
+  { name: 'Працівники', link: '/workers', requiredRole: 'ADMIN'},
+  { name:'Сертифікати', link: '/certificates', requiredRole: ['ADMIN' ,'WORKER']},
+  {name: 'Курси', link: '/courses', requiredRole: ['ADMIN' ,'WORKER']},
+]
+
 const settings = ['Профіль', 'Вийти'];
 
 export const Header: React.FC = () => {
@@ -29,8 +34,10 @@ export const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [pathName, setPathName] = useState<string>('/')
-  const [filteredPages, setFilteredPages] = useState<{   name: string;   link: string;   requiredRole: string; }[]>()
+  const [filteredPages, setFilteredPages] = useState<{ name: string; link: string; requiredRole: string | string[] }[] | undefined>();
 
+
+  console.log(role)
   useEffect(() => {
     if(token) {
       const decoded: JwtPayload = jwtDecode(token);
@@ -71,7 +78,7 @@ useEffect(() => {
 
   useEffect(() => {
     if(pages) {
-      setFilteredPages(pages.filter((page) => !page.requiredRole || role === page.requiredRole));
+      setFilteredPages(pages.filter((page) => !page.requiredRole || page.requiredRole.includes(role)));
     }
   }, [role]);
 
@@ -81,7 +88,6 @@ useEffect(() => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -92,13 +98,12 @@ useEffect(() => {
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
             onClick={() => navigate('/welcome')}
           >
-            LOGO
+            Державний центр сертифікації
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

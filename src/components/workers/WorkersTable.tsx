@@ -9,6 +9,7 @@ import './WorkersTable.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {deleteWorker} from "../../services/main";
+import {toast} from "react-toastify";
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -30,7 +31,11 @@ const columns: GridColDef[] = [
         deleteWorker(params.row.id).then(() => {
           setModalOpen(false);
           window.location.reload();
-        });
+          toast.success('Працівника успішно видалено')
+        })
+          .catch(() => {
+            toast.error('Помилка видалення працівника')
+          })
       };
 
       const modalContent = (
@@ -84,6 +89,7 @@ interface Props {
 }
 
 export const WorkersTable: React.FC<Props> = ({ workers }) => {
+
   return (
     <div style={{ height: 'auto', width: 'fit-content' }}>
       <DataGrid

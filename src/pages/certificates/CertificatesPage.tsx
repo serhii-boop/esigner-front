@@ -6,6 +6,7 @@ import React, {useState} from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import {uploadCSV, downloadTemplate} from "../../services/main";
+import {toast} from "react-toastify";
 
 const columns: GridColDef[] = [
   {
@@ -37,7 +38,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export const SertificatesPage = () => {
+export const CertificatesPage = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isAlertShown, setIsAlertShown] = React.useState(false);
 
@@ -58,9 +59,11 @@ export const SertificatesPage = () => {
     uploadCSV(uploadedFile as File)
       .then(() => {
         setUploadedFile(null);
+        setIsAlertShown(true);
+        toast.success('Файл завантажено успішно')
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        toast.error('Помилка завантаження файлу')
       });
   }
 
@@ -89,7 +92,7 @@ export const SertificatesPage = () => {
               <h3>
                 Будь ласка, заповнюйте дані за наведеним нижче шаблоном
               </h3>
-              <Button sx={{marginBottom:1, width: 300}} onClick={()=> {downloadTemplate()}}>
+              <Button sx={{marginBottom:1}} onClick={()=> {downloadTemplate()}}>
                 Завантажити шаблон
               </Button>
               <div style={{display: "flex", flexDirection: 'column'}}>
