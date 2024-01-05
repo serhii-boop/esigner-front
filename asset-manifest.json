@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/esigner-front/static/css/main.ffdeff27.css",
+    "main.js": "/esigner-front/static/js/main.82c133e0.js",
+    "static/js/787.d7df54ef.chunk.js": "/esigner-front/static/js/787.d7df54ef.chunk.js",
+    "index.html": "/esigner-front/index.html",
+    "main.ffdeff27.css.map": "/esigner-front/static/css/main.ffdeff27.css.map",
+    "main.82c133e0.js.map": "/esigner-front/static/js/main.82c133e0.js.map",
+    "787.d7df54ef.chunk.js.map": "/esigner-front/static/js/787.d7df54ef.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ffdeff27.css",
+    "static/js/main.82c133e0.js"
+  ]
+}
