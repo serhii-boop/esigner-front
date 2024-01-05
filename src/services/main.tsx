@@ -223,3 +223,27 @@ export const signedCertificates = async (file: Uint8Array, password: string, cou
   }
 }
 
+export const openCertificate = async (certificateNumber: string) => {
+  const axiosInstance = createAxiosInstance();
+  try {
+    const response = await axiosInstance.get(`/certificates/download/signed/${certificateNumber}`, { responseType: 'blob' });
+
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+
+    // Open a new window
+    const newWindow = window.open('', '_blank');
+    if (newWindow) {
+      const iframe = document.createElement('iframe');
+      iframe.width = '100%';
+      iframe.height = '100%';
+      iframe.src = window.URL.createObjectURL(blob);
+
+      newWindow.document.body.appendChild(iframe);
+    } else {
+      toast.error('Не вдалося відкрити сертифікат');
+    }
+  } catch (error) {
+    toast.error('Помилка завантаження файлу');
+  }
+}
+

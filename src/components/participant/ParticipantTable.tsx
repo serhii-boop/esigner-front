@@ -10,7 +10,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import {TextField} from "@mui/material";
-import {signedCertificates} from "../../services/main";
+import {openCertificate, signedCertificates} from "../../services/main";
 import {useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 
@@ -23,6 +23,25 @@ const columns: GridColDef[] = [
   { field: 'phone', headerName: 'Номер телефону', width: 200 },
   { field: 'grade', headerName: 'Оцінка', width: 150 },
   { field: 'certificateNumber', headerName: 'Номер сертифікату', width: 200 },
+];
+
+const signedColumns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'firstName', headerName: 'Імʼя', width: 150 },
+  { field: 'lastName', headerName: 'Прізвище', width: 150 },
+  { field: 'middleName', headerName: 'По-батькові', width: 150 },
+  { field: 'email', headerName: 'Електронна пошта', width: 200 },
+  { field: 'phone', headerName: 'Номер телефону', width: 200 },
+  { field: 'grade', headerName: 'Оцінка', width: 150 },
+  { field: 'certificateNumber', headerName: 'Номер сертифікату', width: 200},
+  { field: 'certificate', headerName: 'Сертифікат', width: 250, renderCell: (params) => {
+    const handleOpenCertificate = () => {
+      openCertificate(params.row.certificateNumber)
+      }
+
+      return <Button onClick={handleOpenCertificate}>Переглянути сертифікат</Button>
+  }
+  },
 ];
 
 const style = {
@@ -53,6 +72,7 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
   const [selectedUnassignedParticipants, setSelectedUnassignedParticipants] = useState<GridRowSelectionModel>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadFile, setUploadFile] = useState<Uint8Array | null>(null);
+  const [uncodedFile, setUncodedFile] = useState<File | null>(null);
   const [password, setPassword] = useState('');
   const { id } = useParams();
   const handleUnassignedSelectionChange = (params: GridRowSelectionModel ) => {
@@ -73,6 +93,7 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
 
     if (file) {
       const reader = new FileReader();
+      setUncodedFile(file);
 
       reader.onload = (e) => {
         if (e.target && e.target.result) {
@@ -88,6 +109,7 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
 
   const handleDeleteFile = () => {
     setUploadFile(null);
+    setUncodedFile(null);
   };
 
   const handleAssignCertificates = (event: React.FormEvent<HTMLFormElement>) => {
@@ -101,23 +123,27 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
       return;
     }
 
-    console.log(selectedUnassignedParticipants)
-
     signedCertificates(uploadFile, password, id as string, selectedUnassignedParticipants as number[]).then(() => {
       toast.success('Сертифікати підписано успішно');
       handleClose();
     }).catch((error) => {
       toast.error(error.response.data.msg);
     })
+      .finally(() => {
+        window.location.reload();
+        setUploadFile(null);
+      }
+    );
   }
 
   return (
   <div>
     <div style={{ height: 'auto', width: 'fit-content' , marginBottom: 20}}>
+      {unassignedParticipants && unassignedParticipants.length > 0 && (
       <div>
         <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10, height: 40}}>
         <h2 style={{marginBottom: 0}}>Учасники з непідписаними сертифікатами</h2>
-          {selectedUnassignedParticipants.length > 0 && (
+          {selectedUnassignedParticipants && selectedUnassignedParticipants.length > 0 && (
           <Button
             variant='outlined'
             onClick={handleModalOpen}
@@ -139,12 +165,13 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
           onRowSelectionModelChange={handleUnassignedSelectionChange}
         />
       </div>
+      )}
     </div>
     <div style={{ height: 'auto', width: 'fit-content' }}>
       <h2>Учасники з підписаними сертифікатами</h2>
       <DataGrid
         rows={assignedParticipants}
-        columns={columns}
+        columns={ signedColumns}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
@@ -170,7 +197,7 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
           </Button>
           {uploadFile && (
             <div>
-              {/*{uploadFile.name}*/}
+              {uncodedFile?.name}
               <IconButton aria-label="delete" size="large" onClick={handleDeleteFile}>
                 <DeleteIcon fontSize="inherit" />
               </IconButton>

@@ -89,7 +89,7 @@ const columns: GridColDef[] = [
           {pdfTemplateId ? (
             <div className={'action-container'}>
             <Button onClick={handleDownloadFile}>
-              Переглянути сертифікат
+              Переглянути шаблон
             </Button>
             <Button className={'change-button'} component="label">
               Замінити
