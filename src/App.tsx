@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, HashRouter } from 'react-router-dom';
 import { AuthComponent } from './pages/auth/AuthPage';
 import { WelcomePage } from './pages/WelcomePage';
 import { WorkersPage } from './pages/worker/WorkersPage';
@@ -16,12 +16,12 @@ import {CertificatesPage} from "./pages/certificates/CertificatesPage";
 export const App: React.FC = () => {
   
     return (
-        <Router>
+        <HashRouter>
         <Header />
           <div className='mainContainer'>
                 <Routes>
                     <Route path="/welcome" element={<WelcomePage />} />
-                    <Route path="/esigner-front/" element={<AuthComponent />} />
+                    <Route path="/" element={<AuthComponent />} />
                     <Route path="/workers" element={<WorkersPage />} />
                   <Route path="/edit/:id" element={<EditPage />} />
                   <Route path="/add" element={<AddWorker/>} />
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
                   <Route path='course-participants/:id' element={<CourseParticipant />} />
                 </Routes>
             </div>
-        </Router>
+        </HashRouter>
     );
 };
 
