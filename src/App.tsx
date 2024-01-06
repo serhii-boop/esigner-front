@@ -21,7 +21,7 @@ export const App: React.FC = () => {
           <div className='mainContainer'>
                 <Routes>
                     <Route path="/welcome" element={<WelcomePage />} />
-                    <Route path="/" element={<AuthComponent />} />
+                    <Route path="/esigner-front/" element={<AuthComponent />} />
                     <Route path="/workers" element={<WorkersPage />} />
                   <Route path="/edit/:id" element={<EditPage />} />
                   <Route path="/add" element={<AddWorker/>} />
