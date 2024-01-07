@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/esigner-front/static/css/main.ffdeff27.css",
+    "main.js": "/esigner-front/static/js/main.4c586264.js",
+    "index.html": "/esigner-front/index.html",
+    "main.ffdeff27.css.map": "/esigner-front/static/css/main.ffdeff27.css.map",
+    "main.4c586264.js.map": "/esigner-front/static/js/main.4c586264.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ffdeff27.css",
+    "static/js/main.4c586264.js"
+  ]
+}
