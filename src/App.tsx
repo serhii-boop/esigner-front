@@ -27,9 +27,9 @@ export const App: React.FC = () => {
                   <Route path="/add" element={<AddWorker/>} />
                   <Route path='/Certificates' element={<CertificatesPage/>} />
                   <Route path='/courses' element={<Courses />} />
-                  <Route path='add-course' element={<AddCourse />} />
-                  <Route path='add-course-participants/:id' element={<AddParticipant />} />
-                  <Route path='course-participants/:id' element={<CourseParticipant />} />
+                  <Route path='/add-course' element={<AddCourse />} />
+                  <Route path='/add-course-participants/:id' element={<AddParticipant />} />
+                  <Route path='/course-participants/:id' element={<CourseParticipant />} />
                 </Routes>
             </div>
         </HashRouter>
