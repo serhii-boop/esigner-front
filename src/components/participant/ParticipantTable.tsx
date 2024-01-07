@@ -168,6 +168,8 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
       )}
     </div>
     <div style={{ height: 'auto', width: 'fit-content' }}>
+      {assignedParticipants && assignedParticipants.length > 0 && (
+        <div>
       <h2>Учасники з підписаними сертифікатами</h2>
       <DataGrid
         rows={assignedParticipants}
@@ -179,6 +181,8 @@ export const ParticipantsTable: React.FC<{assignedParticipants: ParticipantType[
         }}
         pageSizeOptions={[5, 10]}
       />
+      </div>
+      )}
     </div>
     <Modal
       open={isModalOpen}
